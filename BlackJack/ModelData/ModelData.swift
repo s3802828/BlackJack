@@ -7,7 +7,8 @@
 
 import Foundation
 
-var cards: [Card] = [
+var cardDeck: [Card] = [
+    Card(name: "heart_A", value: [1,10,11]),
     Card(name: "heart_A", value: [1,10,11]),
     Card(name: "heart_2", value: [2]),
     Card(name: "heart_3", value: [3]),
@@ -22,7 +23,7 @@ var cards: [Card] = [
     Card(name: "heart_Q", value: [10]),
     Card(name: "heart_K", value: [10]),
     
-    Card(name: "diamond_A", value: [1,10,11]),
+    Card(name: "diamond_A", value: [1, 10, 11]),
     Card(name: "diamond_2", value: [2]),
     Card(name: "diamond_3", value: [3]),
     Card(name: "diamond_4", value: [4]),
@@ -36,7 +37,7 @@ var cards: [Card] = [
     Card(name: "diamond_Q", value: [10]),
     Card(name: "diamond_K", value: [10]),
     
-    Card(name: "club_A", value: [1,10,11]),
+    Card(name: "club_A", value: [1, 10, 11]),
     Card(name: "club_2", value: [2]),
     Card(name: "club_3", value: [3]),
     Card(name: "club_4", value: [4]),

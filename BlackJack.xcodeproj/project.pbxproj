@@ -14,6 +14,7 @@
 		FA0F8E9128A6511C00F77F84 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9028A6511C00F77F84 /* ModelData.swift */; };
 		FA0F8E9328A6532800F77F84 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9228A6532800F77F84 /* Card.swift */; };
 		FA0F8E9528A6557700F77F84 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9428A6557700F77F84 /* TableView.swift */; };
+		FA10BFBE28A97E5E009FBCA8 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFBD28A97E5E009FBCA8 /* ColorConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		FA0F8E9028A6511C00F77F84 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		FA0F8E9228A6532800F77F84 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		FA0F8E9428A6557700F77F84 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		FA10BFBD28A97E5E009FBCA8 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			children = (
 				FA0F8E9028A6511C00F77F84 /* ModelData.swift */,
 				FA0F8E9228A6532800F77F84 /* Card.swift */,
+				FA10BFBD28A97E5E009FBCA8 /* ColorConstants.swift */,
 			);
 			path = ModelData;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				FA0F8E8428A56C9400F77F84 /* ContentView.swift in Sources */,
 				FA0F8E9528A6557700F77F84 /* TableView.swift in Sources */,
 				FA0F8E8228A56C9400F77F84 /* BlackJackApp.swift in Sources */,
+				FA10BFBE28A97E5E009FBCA8 /* ColorConstants.swift in Sources */,
 				FA0F8E9128A6511C00F77F84 /* ModelData.swift in Sources */,
 				FA0F8E9328A6532800F77F84 /* Card.swift in Sources */,
 			);
