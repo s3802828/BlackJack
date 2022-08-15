@@ -10,6 +10,9 @@ import Foundation
 var cardDeck: [Card] = [
     Card(name: "heart_A", value: [1,10,11]),
     Card(name: "heart_A", value: [1,10,11]),
+    Card(name: "heart_A", value: [1,10,11]),
+    Card(name: "heart_J", value: [10]),
+    Card(name: "heart_A", value: [1,10,11]),
     Card(name: "heart_2", value: [2]),
     Card(name: "heart_3", value: [3]),
     Card(name: "heart_4", value: [4]),

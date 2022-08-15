@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        MenuView()
+            .onAppear(){
+            AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            UINavigationController.attemptRotationToDeviceOrientation()
+        }
     }
 }
 
