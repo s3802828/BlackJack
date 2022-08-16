@@ -18,6 +18,7 @@
 		FA10BFC028AA7238009FBCA8 /* PlayCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFBF28AA7238009FBCA8 /* PlayCards.swift */; };
 		FA10BFC228AAC989009FBCA8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFC128AAC989009FBCA8 /* MenuView.swift */; };
 		FA10BFC428AACCA7009FBCA8 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFC328AACCA7009FBCA8 /* HowToPlayView.swift */; };
+		FA10BFCA28AB770F009FBCA8 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFC928AB770F009FBCA8 /* Modifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		FA10BFBF28AA7238009FBCA8 /* PlayCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCards.swift; sourceTree = "<group>"; };
 		FA10BFC128AAC989009FBCA8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		FA10BFC328AACCA7009FBCA8 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
+		FA10BFC928AB770F009FBCA8 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		FA0F8E8028A56C9400F77F84 /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
+				FA10BFC828AB7670009FBCA8 /* Helpers */,
 				FA0F8E9628A6557F00F77F84 /* View */,
 				FA0F8E8F28A6510600F77F84 /* ModelData */,
 				FA0F8E8128A56C9400F77F84 /* BlackJackApp.swift */,
@@ -110,6 +113,14 @@
 				FA0F8E9428A6557700F77F84 /* TableView.swift */,
 			);
 			path = GameView;
+			sourceTree = "<group>";
+		};
+		FA10BFC828AB7670009FBCA8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FA10BFC928AB770F009FBCA8 /* Modifiers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +197,7 @@
 				FA10BFC228AAC989009FBCA8 /* MenuView.swift in Sources */,
 				FA0F8E8428A56C9400F77F84 /* ContentView.swift in Sources */,
 				FA10BFC428AACCA7009FBCA8 /* HowToPlayView.swift in Sources */,
+				FA10BFCA28AB770F009FBCA8 /* Modifiers.swift in Sources */,
 				FA0F8E9528A6557700F77F84 /* TableView.swift in Sources */,
 				FA0F8E8228A56C9400F77F84 /* BlackJackApp.swift in Sources */,
 				FA10BFBE28A97E5E009FBCA8 /* ColorConstants.swift in Sources */,

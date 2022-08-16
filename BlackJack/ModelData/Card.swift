@@ -23,7 +23,7 @@ struct CardArray: Identifiable{
     var id = UUID()
     var cards: [Card] = []
     func isBlackJack() -> Bool {
-        return cards.count == 2 && (cards[0].name.last! == "A" && ["J", "Q", "K"].contains(cards[1].name.last!) || cards[1].name.last! == "A" && ["J", "Q", "K"].contains(cards[0].name.last!))
+        return cards.count == 2 && (cards[0].name.last! == "A" && ["0", "J", "Q", "K"].contains(cards[1].name.last!) || cards[1].name.last! == "A" && ["0", "J", "Q", "K"].contains(cards[0].name.last!))
     }
     func isAA() -> Bool {
         return cards.count == 2 && cards[0].name.last! == "A" && cards[1].name.last! == "A"

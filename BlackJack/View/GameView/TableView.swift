@@ -45,24 +45,28 @@ struct TableView: View {
     }
     func drawCard(isPlayer: Bool) {
         if isPlayer {
-            showImagePlayer.append(true)
-            positionXPlayer.append(0)
-            positionYPlayer.append(0)
-            scalePlayer.append(0.5)
-            playerCards.cards.append(shuffledCards[0])
-            shuffledCards.remove(at: 0)
-            for i in 0..<showImagePlayer.count - 1 {
-                positionXPlayer[i] -= 30
+            if playerCards.cards.count < 5 {
+                showImagePlayer.append(true)
+                positionXPlayer.append(0)
+                positionYPlayer.append(0)
+                scalePlayer.append(0.5)
+                playerCards.cards.append(shuffledCards[0])
+                shuffledCards.remove(at: 0)
+                for i in 0..<showImagePlayer.count - 1 {
+                    positionXPlayer[i] -= 30
+                }
             }
         } else {
-            showImageDealer.append(true)
-            positionXDealer.append(0)
-            positionYDealer.append(0)
-            scaleDealer.append(0.5)
-            dealerCards.cards.append(shuffledCards[0])
-            shuffledCards.remove(at: 0)
-            for i in 0..<showImageDealer.count - 1 {
-                positionXDealer[i] -= 30
+            if dealerCards.cards.count < 5 {
+                showImageDealer.append(true)
+                positionXDealer.append(0)
+                positionYDealer.append(0)
+                scaleDealer.append(0.5)
+                dealerCards.cards.append(shuffledCards[0])
+                shuffledCards.remove(at: 0)
+                for i in 0..<showImageDealer.count - 1 {
+                    positionXDealer[i] -= 30
+                }
             }
         }
         self.endTurn()
@@ -252,7 +256,7 @@ struct TableView: View {
                         }).offset(x: CGFloat(200))
                         
                         Button(action: {
-                            isLinkActive = true
+                            dismiss()
                         }, label: {
                             Capsule()
                                 .fill(Color.black)
@@ -262,10 +266,7 @@ struct TableView: View {
                                     .font(.system(.title3, design: .rounded))
                                     .fontWeight(.bold)
                                     .foregroundColor(ColorConstants.boldGold))
-                        }).offset(x: CGFloat(200)).background(                        NavigationLink(destination: MenuView(), isActive: $isLinkActive) {
-                            Text("")
-                    }.hidden()
-)
+                        }).offset(x: CGFloat(200))
                     }
                     
                 }

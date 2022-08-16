@@ -10,12 +10,34 @@ import SwiftUI
 struct MenuView: View {
     @State var scale = 0.5 //Used to control the scale of view when doing the animation
     @State var isLinkActive = false
+    @State private var showingHowToPlay = false
     var body: some View {
-        NavigationView {
             ZStack{
                 ColorConstants.black.ignoresSafeArea(.all, edges: .all)
                 
                 VStack(spacing: 20){
+                    HStack {
+                        Button(action: {
+                            showingHowToPlay = true
+                        }, label: {
+                            Image(systemName: "gearshape.fill")
+                                .modifier(IconButtonModifier())
+                                
+                        }).sheet(isPresented: $showingHowToPlay){
+                            HowToPlayView()
+                        }
+                        Button(action: {
+                            showingHowToPlay = true
+                        }, label: {
+                            Image(systemName: "questionmark.circle.fill")
+                                .modifier(IconButtonModifier())
+                                
+                        }).sheet(isPresented: $showingHowToPlay){
+                            HowToPlayView()
+                        }
+                        
+                    }.padding(.trailing, 20)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                     Spacer()
                     //MARK: APP ICON & NAME
                     Image("color-logo-no-background")
@@ -43,26 +65,19 @@ struct MenuView: View {
                             .fill(ColorConstants.boldGold)
                             .padding(8)
                             .frame(height:80)
-                            .overlay(Text("Go Explore")
+                            .overlay(Text("START GAME")
                                 .font(.system(.title3, design: .rounded))
                                 .fontWeight(.bold)
                                 .foregroundColor(.black))
-                    })
-                    .background(
-                        NavigationLink(destination: TableView(), isActive: $isLinkActive) {
-                                Text("")
-                        }.hidden()
-                            
-                    )
+                    }).fullScreenCover(isPresented: $isLinkActive){
+                        TableView()
+                    }
                     Spacer()
                     //MARK: FOOTER MARK
                     Text("@RMIT University Vietnam 2022").foregroundColor(ColorConstants.boldGold)
                 }
             }
         }
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
-    }
 }
 
 struct MenuView_Previews: PreviewProvider {
