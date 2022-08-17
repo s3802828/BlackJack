@@ -90,7 +90,7 @@ struct HowToPlayView: View {
                         }
                     }
                 }.padding(.top, 40)
-                    .padding(.horizontal, 20)
+                .padding(.horizontal, 20)
             }.cornerRadius(25.0)
         }
     }

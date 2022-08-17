@@ -18,7 +18,9 @@ struct TableView: View {
     @State var dealerCards = CardArray()
     @State var showImageDealer: [Bool] = [true, true]
     @State var showImagePlayer: [Bool] = [true, true]
-    @State var countDownTimer = 30
+    @State var countDownTimer = UserDefaults.standard.integer(forKey: "timeLimit")
+    let timeLimit = UserDefaults.standard.integer(forKey: "timeLimit")
+    let betAmount = UserDefaults.standard.integer(forKey: "betAmount")
     @State var timerRunning = true
     @State var timerY = 120
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -35,14 +37,16 @@ struct TableView: View {
     @State var isDealerStand = false
     @Environment(\.dismiss) var dismiss
     @State var isLinkActive = false
+    //MARK: END TURN FUNCTION
     func endTurn() {
         isPlayerTurn.toggle()
         timerY *= -1
         fill = 1.0
         timerRunning = false
-        countDownTimer = 30
+        countDownTimer = timeLimit
         timerRunning = true
     }
+    //MARK: DRAW CARD FUNCTION
     func drawCard(isPlayer: Bool) {
         if isPlayer {
             if playerCards.cards.count < 5 {
@@ -71,7 +75,7 @@ struct TableView: View {
         }
         self.endTurn()
     }
-    
+    //MARK: RESET GAME
     func resetGame() {
         isEndGame = false
         timerRunning = true
@@ -119,7 +123,7 @@ struct TableView: View {
         isDealerStand = false
         isPlayerStand = false
     }
-    
+    //MARK: CHECK WINNING
     func checkWinning()  {
         let playerPoint = playerCards.calculateTotalValue()
         let dealerPoint = dealerCards.calculateTotalValue()
@@ -221,12 +225,14 @@ struct TableView: View {
     var body: some View {
         ZStack{
             Color.black.edgesIgnoringSafeArea(.all)
+            //MARK: PLAYING TABLE
             Capsule()
                 .strokeBorder(.white, lineWidth: 20)
                 .background(Capsule().fill(ColorConstants.shinyGold))
                 .overlay(Image("dark-logo-no-background").resizable().scaledToFit().scaleEffect(0.3))
                 .frame(width: (UIScreen.main.bounds.width - 100),height: (UIScreen.main.bounds.height - 90))
             ZStack{
+                //MARK: DRAW CARD BUTTON
                 if !isEndGame {
                     Button(action: {
                         if isPlayerTurn && playerCards.calculateTotalValue() < 21 {
@@ -240,6 +246,7 @@ struct TableView: View {
                         Image("hidden")
                     })
                 } else {
+                    //MARK: END GAME BUTTONS
                     VStack {
                         Button(action: {
                             self.resetGame()
@@ -271,9 +278,9 @@ struct TableView: View {
                     
                 }
                 ZStack{
-                    
                     ZStack{
                         ZStack {
+                            //MARK: DEALER & PLAYER IMAGE
                             Image("player")
                                 .resizable()
                                 .scaledToFit()
@@ -284,6 +291,7 @@ struct TableView: View {
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
                                 .offset(x: CGFloat(-200),y:CGFloat(-120))
+                            //MARK: RESULT BADGE
                             if winner != ""{
                                 ResultBadge(result: winner == "tie" ? "tie" : "winner")
                                     .scaleEffect(CGFloat(scaleWinner))
@@ -306,7 +314,7 @@ struct TableView: View {
                                         }
                                     }
                             }
-                            
+                            //MARK: TIME CIRCLE
                             if !isEndGame {
                                 Circle()
                                     .trim(from: 0.0, to: self.fill)
@@ -318,9 +326,9 @@ struct TableView: View {
                                     .onReceive(timer){ _ in
                                         if  countDownTimer > 0 && timerRunning {
                                             countDownTimer -= 1
-                                            fill -= 1.0/30.0
-                                            let randomTime = Int.random(in: 2...28)
-                                            if !isPlayerTurn && countDownTimer <= (30 - randomTime) {
+                                            fill -= 1.0/Double(timeLimit)
+                                            let randomTime = Int.random(in: 2...(timeLimit - 2))
+                                            if !isPlayerTurn && countDownTimer <= (timeLimit - randomTime) {
                                                 let dealerPoints = dealerCards.calculateTotalValue()
                                                 if dealerPoints <= 11 {
                                                     self.drawCard(isPlayer: false)
@@ -357,6 +365,7 @@ struct TableView: View {
                             }
                         }
                         ZStack {
+                            //MARK: PLAYING CARDS
                             PlayCards(isPlayer: true, scaleDealer: $scaleDealer, scalePlayer: $scalePlayer, positionXDealer: $positionXDealer, positionYDealer: $positionYDealer, positionXPlayer: $positionXPlayer, positionYPlayer: $positionYPlayer, playerCards: $playerCards, dealerCards: $dealerCards, showImagePlayer: $showImagePlayer, showImageDealer: $showImageDealer, isImageFlipped: $isEndGame)
                             
                             PlayCards(isPlayer: false, scaleDealer: $scaleDealer, scalePlayer: $scalePlayer, positionXDealer: $positionXDealer, positionYDealer: $positionYDealer, positionXPlayer: $positionXPlayer, positionYPlayer: $positionYPlayer, playerCards: $playerCards, dealerCards: $dealerCards, showImagePlayer: $showImagePlayer, showImageDealer: $showImageDealer, isImageFlipped: $isImageFlipped)
@@ -381,6 +390,7 @@ struct TableView: View {
                                     
                                 }
                         }
+                        //MARK: STAND BUTTON
                         if isPlayerTurn && !isEndGame {
                             Button(action: {
                                 if playerCards.calculateTotalValue() > 11 {

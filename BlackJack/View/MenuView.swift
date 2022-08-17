@@ -11,6 +11,8 @@ struct MenuView: View {
     @State var scale = 0.5 //Used to control the scale of view when doing the animation
     @State var isLinkActive = false
     @State private var showingHowToPlay = false
+    @State private var showingSetting = false
+    @State private var coin = 100
     var body: some View {
             ZStack{
                 ColorConstants.black.ignoresSafeArea(.all, edges: .all)
@@ -18,13 +20,13 @@ struct MenuView: View {
                 VStack(spacing: 20){
                     HStack {
                         Button(action: {
-                            showingHowToPlay = true
+                            showingSetting = true
                         }, label: {
                             Image(systemName: "gearshape.fill")
                                 .modifier(IconButtonModifier())
                                 
-                        }).sheet(isPresented: $showingHowToPlay){
-                            HowToPlayView()
+                        }).sheet(isPresented: $showingSetting){
+                            SettingView(coin: $coin)
                         }
                         Button(action: {
                             showingHowToPlay = true
@@ -76,8 +78,18 @@ struct MenuView: View {
                     //MARK: FOOTER MARK
                     Text("@RMIT University Vietnam 2022").foregroundColor(ColorConstants.boldGold)
                 }
+            }.onAppear(){
+                if UserDefaults.standard.integer(forKey: "betAmount") == 0 {
+                    UserDefaults.standard.set(10, forKey: "betAmount")
+                }
+                if UserDefaults.standard.integer(forKey: "timeLimit") == 0 {
+                    UserDefaults.standard.set(30, forKey: "betAmount")
+                }
+                if UserDefaults.standard.array(forKey: "userInfo") == nil {
+                    UserDefaults.standard.set([], forKey: "userInfo")
+                }
             }
-        }
+    }
 }
 
 struct MenuView_Previews: PreviewProvider {
