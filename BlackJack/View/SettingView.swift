@@ -12,7 +12,7 @@ struct SettingView: View {
     @State var timeLimit = UserDefaults.standard.integer(forKey: "timeLimit")
     var bet = [1, 10, 20, 50, 100, 200, 500]
     var time = [15, 30, 45]
-    @Binding var coin : Int
+    var coin : Int
     @State var betAmountValid = true
     func validateBetAmount() {
         if betSelection > coin {

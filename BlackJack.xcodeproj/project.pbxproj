@@ -22,6 +22,7 @@
 		FA10BFCC28ACE32E009FBCA8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFCB28ACE32E009FBCA8 /* SettingView.swift */; };
 		FA10BFCE28ACE622009FBCA8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFCD28ACE622009FBCA8 /* ToastView.swift */; };
 		FA10BFD028AD6B85009FBCA8 /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFCF28AD6B85009FBCA8 /* LeaderBoardView.swift */; };
+		FA10BFD228AE2B0C009FBCA8 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFD128AE2B0C009FBCA8 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		FA10BFCB28ACE32E009FBCA8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		FA10BFCD28ACE622009FBCA8 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		FA10BFCF28AD6B85009FBCA8 /* LeaderBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
+		FA10BFD128AE2B0C009FBCA8 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				FA10BFCB28ACE32E009FBCA8 /* SettingView.swift */,
 				FA10BFCD28ACE622009FBCA8 /* ToastView.swift */,
 				FA10BFCF28AD6B85009FBCA8 /* LeaderBoardView.swift */,
+				FA10BFD128AE2B0C009FBCA8 /* RegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				FA10BFC028AA7238009FBCA8 /* PlayCards.swift in Sources */,
 				FA10BFC228AAC989009FBCA8 /* MenuView.swift in Sources */,
 				FA0F8E8428A56C9400F77F84 /* ContentView.swift in Sources */,
+				FA10BFD228AE2B0C009FBCA8 /* RegisterView.swift in Sources */,
 				FA10BFC428AACCA7009FBCA8 /* HowToPlayView.swift in Sources */,
 				FA10BFCE28ACE622009FBCA8 /* ToastView.swift in Sources */,
 				FA10BFCA28AB770F009FBCA8 /* Modifiers.swift in Sources */,

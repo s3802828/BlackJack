@@ -9,10 +9,12 @@ import SwiftUI
 
 struct MenuView: View {
     @State var scale = 0.5 //Used to control the scale of view when doing the animation
-    @State var isLinkActive = false
+    @State var showGameView = false
     @State private var showingHowToPlay = false
     @State private var showingSetting = false
-    @State private var coin = 100
+    @State private var showLeaderBoard = false
+    @State var loggedInUser : [String: Any] = [:]
+    @State var isGuest = true
     var body: some View {
             ZStack{
                 ColorConstants.black.ignoresSafeArea(.all, edges: .all)
@@ -26,7 +28,7 @@ struct MenuView: View {
                                 .modifier(IconButtonModifier())
                                 
                         }).sheet(isPresented: $showingSetting){
-                            SettingView(coin: $coin)
+                            SettingView(coin: loggedInUser.count == 0 ? 500 : loggedInUser["currentCoin"] as! Int)
                         }
                         Button(action: {
                             showingHowToPlay = true
@@ -37,7 +39,15 @@ struct MenuView: View {
                         }).sheet(isPresented: $showingHowToPlay){
                             HowToPlayView()
                         }
-                        
+                        Button(action: {
+                            showLeaderBoard = true
+                        }, label: {
+                            Image(systemName: "chart.bar.xaxis")
+                                .modifier(IconButtonModifier())
+                                
+                        }).sheet(isPresented: $showLeaderBoard){
+                            LeaderBoardView()
+                        }
                     }.padding(.trailing, 20)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                     Spacer()
@@ -59,20 +69,39 @@ struct MenuView: View {
                     
                     
                     Spacer()
-                    
-                    Button(action: {
-                        isLinkActive = true
-                    }, label: {
-                        Capsule()
-                            .fill(ColorConstants.boldGold)
-                            .padding(8)
-                            .frame(height:80)
-                            .overlay(Text("START GAME")
-                                .font(.system(.title3, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(.black))
-                    }).fullScreenCover(isPresented: $isLinkActive){
-                        TableView()
+                    if isGuest {
+                        RegisterView(isGuest: $isGuest, loggedInUser: $loggedInUser)
+                            .padding(10)
+                    } else {
+                        VStack {
+                            Button(action: {
+                                showGameView = true
+                            }, label: {
+                                Capsule()
+                                    .fill(ColorConstants.boldGold)
+                                    .padding(8)
+                                    .frame(height:80)
+                                    .overlay(Text("START GAME")
+                                        .font(.system(.title3, design: .rounded))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black))
+                            }).fullScreenCover(isPresented: $showGameView){
+                                TableView(loggedInUser: $loggedInUser)
+                            }
+                            Button(action: {
+                                isGuest = true
+                            }, label: {
+                                Capsule()
+                                    .fill(ColorConstants.boldGold)
+                                    .padding(8)
+                                    .frame(height:80)
+                                    .overlay(Text("CHANGE ACCOUNT")
+                                        .font(.system(.title3, design: .rounded))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black))
+                            })
+                        }
+                        
                     }
                     Spacer()
                     //MARK: FOOTER MARK
@@ -80,10 +109,10 @@ struct MenuView: View {
                 }
             }.onAppear(){
                 if UserDefaults.standard.integer(forKey: "betAmount") == 0 {
-                    UserDefaults.standard.set(10, forKey: "betAmount")
+                    UserDefaults.standard.set(1, forKey: "betAmount")
                 }
                 if UserDefaults.standard.integer(forKey: "timeLimit") == 0 {
-                    UserDefaults.standard.set(30, forKey: "betAmount")
+                    UserDefaults.standard.set(30, forKey: "timeLimit")
                 }
                 if UserDefaults.standard.array(forKey: "userInfo") == nil {
                     UserDefaults.standard.set([], forKey: "userInfo")

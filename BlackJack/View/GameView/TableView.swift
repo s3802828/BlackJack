@@ -37,6 +37,8 @@ struct TableView: View {
     @State var isDealerStand = false
     @Environment(\.dismiss) var dismiss
     @State var isLinkActive = false
+    @Binding var loggedInUser : [String: Any]
+    
     //MARK: END TURN FUNCTION
     func endTurn() {
         isPlayerTurn.toggle()
@@ -454,9 +456,9 @@ struct ResultBadge : View {
 
 
 
-struct TableView_Previews: PreviewProvider {
-    static var previews: some View {
-        TableView().previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct TableView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TableView().previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}
 

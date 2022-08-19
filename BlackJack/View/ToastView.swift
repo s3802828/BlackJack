@@ -10,13 +10,13 @@ import SwiftUI
 struct ToastView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let message : String
-    @State private var countDownTimer = 1
+    @State private var countDownTimer = 2
     @State private var isShow = true
     var body: some View {
         if isShow {
             Text("\(message)")
                 .foregroundColor(Color.white)
-                .padding(10)
+                .padding(20)
                 .background(Capsule().opacity(0.5))
                 .onReceive(timer){ _ in
                     if  countDownTimer > 0 {
