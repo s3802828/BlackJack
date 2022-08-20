@@ -13,12 +13,14 @@ struct HeaderModifier: ViewModifier{
       content
             .font(.system(size: 20.0, weight: .heavy))
             .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width, alignment: .center)
+            .foregroundColor(Color.black)
     }
 }
 struct TitleModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
         .font(.system(size: 15, weight: .bold))
+        .foregroundColor(Color.black)
   }
 }
 
@@ -26,6 +28,7 @@ struct SubTitleModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
         .font(.system(size: 12.5, weight: .semibold))
+        .foregroundColor(Color.black)
   }
 }
 
@@ -33,6 +36,7 @@ struct TextDetailModifier: ViewModifier {
     func body(content: Content) -> some View {
       content
         .font(.system(size: 12.5))
+        .foregroundColor(Color.black)
     }
 }
 

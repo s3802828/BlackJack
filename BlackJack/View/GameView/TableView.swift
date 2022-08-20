@@ -7,6 +7,7 @@
 
 import SwiftUI
 struct TableView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var shuffledCards = cardDeck
     @State var scaleDealer : [Float] = [0.5,0.5]
     @State var scalePlayer : [Float] = [0.5,0.5]
@@ -38,6 +39,8 @@ struct TableView: View {
     @Environment(\.dismiss) var dismiss
     @State var isLinkActive = false
     @Binding var loggedInUser : [String: Any]
+    @State var loggedInUserCopy : [String:Any] = ["currentCoin": 500]
+    @State var isRefill = false
     
     //MARK: END TURN FUNCTION
     func endTurn() {
@@ -125,6 +128,23 @@ struct TableView: View {
         isDealerStand = false
         isPlayerStand = false
     }
+    func modifyDatabase(){
+        let userArray: [Dictionary<String, Any>] = UserDefaults.standard.array(forKey: "userInfo") as? [Dictionary<String, Any>] ?? [];
+        var userArrayCopy = userArray
+        var idx = 0
+        for i in userArrayCopy {
+            if i["username"] as! String == loggedInUserCopy["username"] as! String {
+                var iCopy = i
+                iCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int
+                iCopy["highestCoin"] = loggedInUserCopy["highestCoin"] as! Int
+                userArrayCopy[idx] = iCopy
+                break
+            }
+            idx += 1
+        }
+        loggedInUser = loggedInUserCopy
+        UserDefaults.standard.set(userArrayCopy, forKey: "userInfo")
+    }
     //MARK: CHECK WINNING
     func checkWinning()  {
         let playerPoint = playerCards.calculateTotalValue()
@@ -135,6 +155,11 @@ struct TableView: View {
                 self.animating.toggle()
             }
             winner = "dealer"
+            if (playerCards.isAA()){
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount * 2
+            } else {
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
+            }
             isEndGame = true
         } else if playerCards.isAA() || dealerCards.isAA() {
             timerRunning = false
@@ -142,8 +167,10 @@ struct TableView: View {
                 self.animating.toggle()
             }
             if dealerCards.isAA() {
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount * 2
                 winner = "dealer"
             } else {
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int  + betAmount * 2
                 winner = "player"
             }
             isEndGame = true
@@ -153,8 +180,10 @@ struct TableView: View {
                 self.animating.toggle()
             }
             if dealerCards.isBlackJack() {
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                 winner = "dealer"
             } else {
+                loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                 winner = "player"
             }
             isEndGame = true
@@ -165,11 +194,13 @@ struct TableView: View {
                     self.animating.toggle()
                 }
                 if dealerCards.calculateTotalValue() < playerCards.calculateTotalValue() {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
                 } else if dealerCards.calculateTotalValue() == playerCards.calculateTotalValue() {
                     winner = "tie"
                 } else {
                     winner = "player"
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                 }
                 isEndGame = true
             } else if playerCards.isMagicFive() || dealerCards.isMagicFive(){
@@ -178,9 +209,11 @@ struct TableView: View {
                     self.animating.toggle()
                 }
                 if dealerCards.isMagicFive() {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
                 } else {
                     winner = "player"
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                 }
                 isEndGame = true
             } else if 16 <= playerPoint && playerPoint <= 21 && dealerPoint <= 21 && dealerPoint >= 16 {
@@ -189,10 +222,12 @@ struct TableView: View {
                     self.animating.toggle()
                 }
                 if dealerPoint > playerPoint {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
                 } else if dealerPoint == playerPoint{
                     winner = "tie"
                 } else {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                     winner = "player"
                 }
                 isEndGame = true
@@ -202,19 +237,22 @@ struct TableView: View {
                     self.animating.toggle()
                 }
                 if dealerPoint <= 21 && dealerPoint >= 16 {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
                 } else {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                     winner = "player"
                 }
                 isEndGame = true
             } else if playerPoint > 21 || dealerPoint > 21 {
                 if dealerPoint > 21 {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
                 } else {
+                    loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                     winner = "player"
                 }
             } else {
-                
                 timerRunning = false
                 withAnimation(Animation.linear(duration: 0.3)) {
                     self.animating.toggle()
@@ -223,13 +261,21 @@ struct TableView: View {
                 isEndGame = true
             }
         }
+        if loggedInUserCopy["currentCoin"] as! Int == 0 {
+            loggedInUserCopy["currentCoin"] = 500
+            isRefill = true
+        }
+        if loggedInUserCopy["currentCoin"] as! Int > loggedInUserCopy["highestCoin"] as! Int {
+            loggedInUserCopy["highestCoin"] = loggedInUserCopy["currentCoin"]
+        }
+        modifyDatabase()
     }
     var body: some View {
         ZStack{
-            Color.black.edgesIgnoringSafeArea(.all)
+            colorScheme == .dark ? Color.white.edgesIgnoringSafeArea(.all) : Color.black.edgesIgnoringSafeArea(.all)
             //MARK: PLAYING TABLE
             Capsule()
-                .strokeBorder(.white, lineWidth: 20)
+                .strokeBorder(colorScheme == .dark ? .gray : .white, lineWidth: 20)
                 .background(Capsule().fill(ColorConstants.shinyGold))
                 .overlay(Image("dark-logo-no-background").resizable().scaledToFit().scaleEffect(0.3))
                 .frame(width: (UIScreen.main.bounds.width - 100),height: (UIScreen.main.bounds.height - 90))
@@ -279,15 +325,28 @@ struct TableView: View {
                     }
                     
                 }
+                if isRefill {
+                    ToastView(message: "You are out of money! Your money has been refill to $500")
+                        .onDisappear(){
+                            isRefill = false
+                        }
+                }
                 ZStack{
                     ZStack{
                         ZStack {
                             //MARK: DEALER & PLAYER IMAGE
-                            Image("player")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .offset(x: CGFloat(-200),y:CGFloat(120))
+                            VStack{
+                                Image("player")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    
+                                Text("$\(String(loggedInUserCopy["currentCoin"] as! Int))")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(ColorConstants.boldGold)
+                                    .bold()
+                            }.offset(x: CGFloat(-200),y:CGFloat(120))
+                            
                             Image("dealer")
                                 .resizable()
                                 .scaledToFit()
@@ -422,6 +481,7 @@ struct TableView: View {
             AppDelegate.orientationLock = UIInterfaceOrientationMask.landscape
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
             UINavigationController.attemptRotationToDeviceOrientation()
+            loggedInUserCopy = loggedInUser
             playerCards.cards.append(shuffledCards[0])
             shuffledCards.remove(at: 0)
             playerCards.cards.append(shuffledCards[0])

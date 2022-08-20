@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var scale = 0.5 //Used to control the scale of view when doing the animation
     @State var showGameView = false
     @State private var showingHowToPlay = false
@@ -17,7 +18,7 @@ struct MenuView: View {
     @State var isGuest = true
     var body: some View {
             ZStack{
-                ColorConstants.black.ignoresSafeArea(.all, edges: .all)
+                colorScheme == .dark ? Color.white.edgesIgnoringSafeArea(.all) : Color.black.edgesIgnoringSafeArea(.all)
                 
                 VStack(spacing: 20){
                     HStack {
@@ -90,6 +91,7 @@ struct MenuView: View {
                             }
                             Button(action: {
                                 isGuest = true
+                                loggedInUser = [:]
                             }, label: {
                                 Capsule()
                                     .fill(ColorConstants.boldGold)

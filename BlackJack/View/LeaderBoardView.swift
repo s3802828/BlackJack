@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct LeaderBoardView: View {
+    @Environment(\.colorScheme) var colorScheme
     let userArray : [Dictionary<String, Any>] = UserDefaults.standard.array(forKey: "userInfo") as? [Dictionary<String, Any>] ?? [];
     @State var sortedUserArray : [Dictionary<String, Any>] = []
     var body: some View {
         ZStack{
-            ColorConstants.black.edgesIgnoringSafeArea(.all)
+            colorScheme == .dark ? Color.white.edgesIgnoringSafeArea(.all) : Color.black.edgesIgnoringSafeArea(.all)
             ScrollView {
                 VStack (spacing: 0){
                     LeaderBoardTitle(titles: ["Rank", "Username", "Coins"])
