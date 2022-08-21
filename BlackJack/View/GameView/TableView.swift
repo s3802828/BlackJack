@@ -24,7 +24,7 @@ struct TableView: View {
     let betAmount = UserDefaults.standard.integer(forKey: "betAmount")
     @State var timerRunning = true
     @State var timerY = 120
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, on: .current, in: .common)
     @State var isPlayerTurn = true
     @State private var animating = false
     @State private var isImageFlipped = false
@@ -37,11 +37,11 @@ struct TableView: View {
     @State var isPlayerStand = false
     @State var isDealerStand = false
     @Environment(\.dismiss) var dismiss
-    @State var isLinkActive = false
     @Binding var loggedInUser : [String: Any]
     @State var loggedInUserCopy : [String:Any] = ["currentCoin": 500]
     @State var isRefill = false
-    
+    @State var canStand = true
+    @State var canDraw = true
     //MARK: END TURN FUNCTION
     func endTurn() {
         isPlayerTurn.toggle()
@@ -53,6 +53,7 @@ struct TableView: View {
     }
     //MARK: DRAW CARD FUNCTION
     func drawCard(isPlayer: Bool) {
+        playSound(sound: "draw_card", type: "mp3")
         if isPlayer {
             if playerCards.cards.count < 5 {
                 showImagePlayer.append(true)
@@ -83,7 +84,13 @@ struct TableView: View {
     //MARK: RESET GAME
     func resetGame() {
         isEndGame = false
+        countDownTimer = timeLimit
         timerRunning = true
+        isPlayerTurn = true
+        timerY = 120
+        fill = 1.0
+        isPlayerStand = false
+        isDealerStand = false
         winner = ""
         playerCards.cards.removeAll()
         dealerCards.cards.removeAll()
@@ -149,18 +156,21 @@ struct TableView: View {
     func checkWinning()  {
         let playerPoint = playerCards.calculateTotalValue()
         let dealerPoint = dealerCards.calculateTotalValue()
+        //MARK: CASE 1: Both got AA or Blackjack
         if (playerCards.isAA() && dealerCards.isAA())  || (playerCards.isBlackJack() && dealerCards.isBlackJack()){
             timerRunning = false
             withAnimation(Animation.linear(duration: 0.3)) {
                 self.animating.toggle()
             }
             winner = "dealer"
+            //Adjust the currentCoin of player
             if (playerCards.isAA()){
                 loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount * 2
             } else {
                 loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
             }
             isEndGame = true
+            //MARK: CASE 2 : Only 1 got AA
         } else if playerCards.isAA() || dealerCards.isAA() {
             timerRunning = false
             withAnimation(Animation.linear(duration: 0.3)) {
@@ -187,16 +197,17 @@ struct TableView: View {
                 winner = "player"
             }
             isEndGame = true
+            //Only check these cases when both have stood
         } else if isPlayerStand && isDealerStand {
             if playerCards.isMagicFive() && dealerCards.isMagicFive(){
                 timerRunning = false
                 withAnimation(Animation.linear(duration: 0.3)) {
                     self.animating.toggle()
                 }
-                if dealerCards.calculateTotalValue() < playerCards.calculateTotalValue() {
+                if dealerPoint < playerPoint {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
-                } else if dealerCards.calculateTotalValue() == playerCards.calculateTotalValue() {
+                } else if dealerPoint == playerPoint {
                     winner = "tie"
                 } else {
                     winner = "player"
@@ -216,6 +227,7 @@ struct TableView: View {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                 }
                 isEndGame = true
+                //Safe Range
             } else if 16 <= playerPoint && playerPoint <= 21 && dealerPoint <= 21 && dealerPoint >= 16 {
                 timerRunning = false
                 withAnimation(Animation.linear(duration: 0.3)) {
@@ -224,7 +236,7 @@ struct TableView: View {
                 if dealerPoint > playerPoint {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
-                } else if dealerPoint == playerPoint{
+                } else if dealerPoint == playerPoint {
                     winner = "tie"
                 } else {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
@@ -261,6 +273,13 @@ struct TableView: View {
                 isEndGame = true
             }
         }
+        if winner == "player"{
+            playSound(sound: "win", type: "mp3")
+        } else if winner == "dealer"{
+            playSound(sound: "lose", type: "mp3")
+        } else if winner == "tie" {
+            playSound(sound: "tie", type: "wav")
+        }
         if loggedInUserCopy["currentCoin"] as! Int == 0 {
             loggedInUserCopy["currentCoin"] = 500
             isRefill = true
@@ -279,6 +298,24 @@ struct TableView: View {
                 .background(Capsule().fill(ColorConstants.shinyGold))
                 .overlay(Image("dark-logo-no-background").resizable().scaledToFit().scaleEffect(0.3))
                 .frame(width: (UIScreen.main.bounds.width - 100),height: (UIScreen.main.bounds.height - 90))
+//            if isRefill {
+//                ToastView(message: "You are out of money! Your money has been refill to $500", countDownTimer: 2)
+//                    .onDisappear(){
+//                        isRefill = false
+//                    }
+//            }
+//            if !canStand {
+//                ToastView(message: "Your total point is under 11, please draw more card(s)!", countDownTimer: 2)
+//                    .onDisappear(){
+//                        canStand = true
+//                    }
+//            }
+//            if !canDraw {
+//                ToastView(message: "You are busted! You cannot draw more card!", countDownTimer: 2)
+//                    .onDisappear(){
+//                        canDraw = true
+//                    }
+//            }
             ZStack{
                 //MARK: DRAW CARD BUTTON
                 if !isEndGame {
@@ -288,7 +325,8 @@ struct TableView: View {
                             if isDealerStand {
                                 self.endTurn()
                             }
-                            
+                        } else {
+                            canDraw = false
                         }
                     }, label: {
                         Image("hidden")
@@ -297,6 +335,7 @@ struct TableView: View {
                     //MARK: END GAME BUTTONS
                     VStack {
                         Button(action: {
+                            stopPlayer()
                             self.resetGame()
                             self.checkWinning()
                         }, label: {
@@ -325,12 +364,7 @@ struct TableView: View {
                     }
                     
                 }
-                if isRefill {
-                    ToastView(message: "You are out of money! Your money has been refill to $500")
-                        .onDisappear(){
-                            isRefill = false
-                        }
-                }
+                
                 ZStack{
                     ZStack{
                         ZStack {
@@ -385,19 +419,20 @@ struct TableView: View {
                                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                                     .offset(x: CGFloat(-200),y:CGFloat(timerY))
                                     .onReceive(timer){ _ in
+                                        //MARK: DEALER AI
                                         if  countDownTimer > 0 && timerRunning {
                                             countDownTimer -= 1
                                             fill -= 1.0/Double(timeLimit)
                                             let randomTime = Int.random(in: 2...(timeLimit - 2))
                                             if !isPlayerTurn && countDownTimer <= (timeLimit - randomTime) {
                                                 let dealerPoints = dealerCards.calculateTotalValue()
-                                                if dealerPoints <= 11 {
+                                                if dealerPoints <= 11 && dealerCards.cards.count < 5 {
                                                     self.drawCard(isPlayer: false)
                                                     if isPlayerStand{
                                                         self.endTurn()
                                                     }
                                                     
-                                                } else if dealerPoints < 18 {
+                                                } else if dealerPoints < 18 && dealerCards.cards.count < 5 {
                                                     let randomNumber = Int.random(in: 0...100)
                                                     if randomNumber < 50 {
                                                         self.drawCard(isPlayer: false)
@@ -454,12 +489,15 @@ struct TableView: View {
                         //MARK: STAND BUTTON
                         if isPlayerTurn && !isEndGame {
                             Button(action: {
-                                if playerCards.calculateTotalValue() > 11 {
+                                if playerCards.calculateTotalValue() > 11 || playerCards.cards.count == 5 {
+                                    playSound(sound: "stand", type: "mp3")
                                     isPlayerStand = true
                                     self.endTurn()
                                     if isDealerStand {
                                         checkWinning()
                                     }
+                                } else {
+                                    canStand = false
                                 }
                             }, label: {
                                 Capsule()
@@ -478,6 +516,7 @@ struct TableView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }.onAppear(){
+            stopPlayer()
             AppDelegate.orientationLock = UIInterfaceOrientationMask.landscape
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
             UINavigationController.attemptRotationToDeviceOrientation()
@@ -492,6 +531,7 @@ struct TableView: View {
             shuffledCards.remove(at: 0)
             checkWinning()
         }.onDisappear(perform: {
+            playSound(sound: "welcome", type: "mp3")
             DispatchQueue.main.async {
                 AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
                 UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")

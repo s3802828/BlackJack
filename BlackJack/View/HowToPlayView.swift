@@ -25,7 +25,7 @@ struct HowToPlayView: View {
                      3: "If the player got Blackjack, the dealer didn't, the player would win the bet. Otherwise, if the dealer got Blackjack, the player didn't, the player would lose the bet.",
                      4: "If both have stood and both got Magic Five, the person with less total value would win. If that is the player, they would win the bet; otherwise, they would lose the bet.",
                      5: "If only one got Magic Five, that person would win. If that is the player, they would win the bet; otherwise, they would lose the bet.",
-                     6: "If both got the total value in Safe Range, the person with less total value would win. If that is the player, they would win the bet; otherwise, they would lose the bet.",
+                     6: "If both got the total value in Safe Range, the person with less total value would win. If that is the player, they would win the bet; otherwise, they would lose the bet. If both has the same total value, the result is tie",
                      7: "If only one the total value in Safe Range, that person would win. If that is the player, they would win the bet; otherwise, they would lose the bet.",
                      8: "If one got busted and one got Dirty Stand, the busted person would win. If that is the player, they would win the bet; otherwise, they would lose the bet.",
                      9: "If both got busted or both got Dirty Stand, the result is tie, the player wouldn't lose any money"]

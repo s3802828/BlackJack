@@ -41,6 +41,7 @@ struct SettingView: View {
                                 Text(String($0))
                             }
                         }.onChange(of: betSelection) { _ in
+                            playSound2(sound: "betMoney", type: "wav")
                             validateBetAmount()
                         }.pickerStyle(SegmentedPickerStyle())
                     }
@@ -48,7 +49,7 @@ struct SettingView: View {
                 
                 
                 if !betAmountValid {
-                    ToastView(message: "You cannot bet more than your current coins!")
+                    ToastView(message: "You cannot bet more than your current coins!", countDownTimer: 2)
                         .onDisappear(){
                             betSelection = 1
                             UserDefaults.standard.set(betSelection, forKey: "betAmount")

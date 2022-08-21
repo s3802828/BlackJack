@@ -44,7 +44,7 @@ struct CardArray: Identifiable{
                 while difference > 0 && idx < sortedValue.count {
                     if 21 - (total + sortedValue[idx]) < difference {
                         difference = 21 - (total + sortedValue[idx])
-                        if difference > 0 {
+                        if difference >= 0 {
                             chosenValue = sortedValue[idx]
                         }
                     }

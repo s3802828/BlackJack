@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ToastView: View {
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, on: .current, in: .common)
     let message : String
-    @State private var countDownTimer = 2
+    @State var countDownTimer : Int
     @State private var isShow = true
     var body: some View {
         if isShow {
@@ -27,11 +27,5 @@ struct ToastView: View {
                 }
         }
         
-    }
-}
-
-struct ToastView_Previews: PreviewProvider {
-    static var previews: some View {
-        ToastView(message: "Hello")
     }
 }

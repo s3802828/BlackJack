@@ -119,6 +119,9 @@ struct MenuView: View {
                 if UserDefaults.standard.array(forKey: "userInfo") == nil {
                     UserDefaults.standard.set([], forKey: "userInfo")
                 }
+                playSound(sound: "welcome", type: "mp3")
+            }.onDisappear(){
+                stopPlayer()
             }
     }
 }

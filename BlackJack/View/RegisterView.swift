@@ -54,7 +54,7 @@ struct RegisterView: View {
                 })
             }.textFieldStyle(.roundedBorder)
             if !isPasswordValid {
-                ToastView(message: "If you are signing up, this username is already used, please enter another one. If you are logging in, the password is incorrect, please re-enter the correct one.")
+                ToastView(message: "If you are signing up, this username is already used, please enter another one. If you are logging in, the password is incorrect, please re-enter the correct one.", countDownTimer: 2)
                     .onDisappear(){
                     isPasswordValid = true
                 }
