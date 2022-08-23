@@ -8,24 +8,6 @@
 import Foundation
 
 var cardDeck: [Card] = [
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_3", value: [3]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_2", value: [2]),
-
-//    Card(name: "heart_A", value: [1,10,11]),
-    Card(name: "heart_6", value: [6]),
-    
-    Card(name: "heart_3", value: [3]),
-    Card(name: "heart_2", value: [2]),
-    Card(name: "heart_5", value: [5]),
-    Card(name: "heart_5", value: [5]),
     Card(name: "heart_A", value: [1,10,11]),
     Card(name: "heart_2", value: [2]),
     Card(name: "heart_3", value: [3]),

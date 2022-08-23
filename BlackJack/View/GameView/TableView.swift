@@ -8,7 +8,7 @@
 import SwiftUI
 struct TableView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State var shuffledCards = cardDeck
+    @State var shuffledCards = cardDeck.shuffled()
     @State var scaleDealer : [Float] = [0.5,0.5]
     @State var scalePlayer : [Float] = [0.5,0.5]
     @State var positionXDealer: [Int] = [-30,0]
@@ -24,7 +24,7 @@ struct TableView: View {
     let betAmount = UserDefaults.standard.integer(forKey: "betAmount")
     @State var timerRunning = true
     @State var timerY = 120
-    let timer = Timer.publish(every: 1, on: .current, in: .common)
+    let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     @State var isPlayerTurn = true
     @State private var animating = false
     @State private var isImageFlipped = false
@@ -92,6 +92,7 @@ struct TableView: View {
         isPlayerStand = false
         isDealerStand = false
         winner = ""
+//        playSound(sound: "new-game", type: "wav")
         playerCards.cards.removeAll()
         dealerCards.cards.removeAll()
         shuffledCards = cardDeck.shuffled()
@@ -257,6 +258,10 @@ struct TableView: View {
                 }
                 isEndGame = true
             } else if playerPoint > 21 || dealerPoint > 21 {
+                timerRunning = false
+                withAnimation(Animation.linear(duration: 0.3)) {
+                    self.animating.toggle()
+                }
                 if dealerPoint > 21 {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int - betAmount
                     winner = "dealer"
@@ -264,6 +269,7 @@ struct TableView: View {
                     loggedInUserCopy["currentCoin"] = loggedInUserCopy["currentCoin"] as! Int + betAmount
                     winner = "player"
                 }
+                isEndGame = true
             } else {
                 timerRunning = false
                 withAnimation(Animation.linear(duration: 0.3)) {
@@ -273,19 +279,19 @@ struct TableView: View {
                 isEndGame = true
             }
         }
-        if winner == "player"{
-            playSound(sound: "win", type: "mp3")
-        } else if winner == "dealer"{
-            playSound(sound: "lose", type: "mp3")
-        } else if winner == "tie" {
-            playSound(sound: "tie", type: "wav")
-        }
         if loggedInUserCopy["currentCoin"] as! Int == 0 {
             loggedInUserCopy["currentCoin"] = 500
             isRefill = true
         }
         if loggedInUserCopy["currentCoin"] as! Int > loggedInUserCopy["highestCoin"] as! Int {
             loggedInUserCopy["highestCoin"] = loggedInUserCopy["currentCoin"]
+        }
+        if winner == "player"{
+            playSound(sound: "win", type: "mp3")
+        } else if winner == "dealer"{
+            playSound(sound: "lose", type: "mp3")
+        } else if winner == "tie" {
+            playSound(sound: "tie", type: "wav")
         }
         modifyDatabase()
     }
@@ -520,6 +526,7 @@ struct TableView: View {
             AppDelegate.orientationLock = UIInterfaceOrientationMask.landscape
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
             UINavigationController.attemptRotationToDeviceOrientation()
+//            playSound(sound: "new-game", type: "wav")
             loggedInUserCopy = loggedInUser
             playerCards.cards.append(shuffledCards[0])
             shuffledCards.remove(at: 0)

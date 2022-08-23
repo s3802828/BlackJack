@@ -31,6 +31,7 @@
 		FAF1573228B2BEE3002B80AC /* tie.wav in Resources */ = {isa = PBXBuildFile; fileRef = FAF1572B28B2BEE3002B80AC /* tie.wav */; };
 		FAF1573328B2BEE3002B80AC /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FAF1572C28B2BEE3002B80AC /* lose.mp3 */; };
 		FAF1573428B2BEE3002B80AC /* stand.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FAF1572D28B2BEE3002B80AC /* stand.mp3 */; };
+		FAF1573628B4AA1A002B80AC /* new-game.wav in Resources */ = {isa = PBXBuildFile; fileRef = FAF1573528B4AA1A002B80AC /* new-game.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		FAF1572B28B2BEE3002B80AC /* tie.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tie.wav; sourceTree = "<group>"; };
 		FAF1572C28B2BEE3002B80AC /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
 		FAF1572D28B2BEE3002B80AC /* stand.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stand.mp3; sourceTree = "<group>"; };
+		FAF1573528B4AA1A002B80AC /* new-game.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "new-game.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		FAF1572628B2BEE3002B80AC /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				FAF1573528B4AA1A002B80AC /* new-game.wav */,
 				FAF1572728B2BEE3002B80AC /* welcome.mp3 */,
 				FAF1572828B2BEE3002B80AC /* draw_card.mp3 */,
 				FAF1572928B2BEE3002B80AC /* win.mp3 */,
@@ -202,7 +205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FA0F8E7928A56C9400F77F84 /* Build configuration list for PBXProject "BlackJack" */;
+			buildConfigurationList = FA0F8E7928A56C9400F77F84 /* Build configuration list for PBXProject "VBlackJack" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -234,6 +237,7 @@
 				FAF1572F28B2BEE3002B80AC /* draw_card.mp3 in Resources */,
 				FA0F8E8628A56C9600F77F84 /* Assets.xcassets in Resources */,
 				FAF1573128B2BEE3002B80AC /* betMoney.wav in Resources */,
+				FAF1573628B4AA1A002B80AC /* new-game.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +446,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FA0F8E7928A56C9400F77F84 /* Build configuration list for PBXProject "BlackJack" */ = {
+		FA0F8E7928A56C9400F77F84 /* Build configuration list for PBXProject "VBlackJack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA0F8E8A28A56C9600F77F84 /* Debug */,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ToastView: View {
-    let timer = Timer.publish(every: 1, on: .current, in: .common)
+    let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     let message : String
     @State var countDownTimer : Int
     @State private var isShow = true
