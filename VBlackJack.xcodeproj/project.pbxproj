@@ -35,7 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FA0F8E7E28A56C9400F77F84 /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0F8E7E28A56C9400F77F84 /* VBlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VBlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA0F8E8128A56C9400F77F84 /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
 		FA0F8E8328A56C9400F77F84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA0F8E8528A56C9600F77F84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		FA0F8E7F28A56C9400F77F84 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FA0F8E7E28A56C9400F77F84 /* BlackJack.app */,
+				FA0F8E7E28A56C9400F77F84 /* VBlackJack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,9 +173,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FA0F8E7D28A56C9400F77F84 /* BlackJack */ = {
+		FA0F8E7D28A56C9400F77F84 /* VBlackJack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FA0F8E8C28A56C9600F77F84 /* Build configuration list for PBXNativeTarget "BlackJack" */;
+			buildConfigurationList = FA0F8E8C28A56C9600F77F84 /* Build configuration list for PBXNativeTarget "VBlackJack" */;
 			buildPhases = (
 				FA0F8E7A28A56C9400F77F84 /* Sources */,
 				FA0F8E7B28A56C9400F77F84 /* Frameworks */,
@@ -185,9 +185,9 @@
 			);
 			dependencies = (
 			);
-			name = BlackJack;
+			name = VBlackJack;
 			productName = BlackJack;
-			productReference = FA0F8E7E28A56C9400F77F84 /* BlackJack.app */;
+			productReference = FA0F8E7E28A56C9400F77F84 /* VBlackJack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -218,7 +218,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FA0F8E7D28A56C9400F77F84 /* BlackJack */,
+				FA0F8E7D28A56C9400F77F84 /* VBlackJack */,
 			);
 		};
 /* End PBXProject section */
@@ -455,7 +455,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FA0F8E8C28A56C9600F77F84 /* Build configuration list for PBXNativeTarget "BlackJack" */ = {
+		FA0F8E8C28A56C9600F77F84 /* Build configuration list for PBXNativeTarget "VBlackJack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA0F8E8D28A56C9600F77F84 /* Debug */,

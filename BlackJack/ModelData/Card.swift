@@ -29,31 +29,41 @@ struct CardArray: Identifiable{
         return cards.count == 2 && cards[0].name.last! == "A" && cards[1].name.last! == "A"
     }
     func isMagicFive() -> Bool {
-        return cards.count == 5 && self.calculateTotalValue() <= 21
+        return cards.count == 5 && self.calculateTotalValue(isEndGame: false) <= 21
     }
     
-    func calculateTotalValue() -> Int {
+    func calculateTotalValue(isEndGame: Bool) -> Int {
         var total = 0
         let sortedCard = cards.sorted(by: {$0.value.count < $1.value.count})
+        var index = 0
         for i in sortedCard {
             if i.value.count > 1 {
-                let sortedValue = i.value.sorted(by: <)
-                var difference = 21 - (total + sortedValue[0])
-                var chosenValue = sortedValue[0]
-                var idx = 1
-                while difference > 0 && idx < sortedValue.count {
-                    if 21 - (total + sortedValue[idx]) < difference {
-                        difference = 21 - (total + sortedValue[idx])
-                        if difference >= 0 {
-                            chosenValue = sortedValue[idx]
+                if !isEndGame {
+                    total += 1
+                } else {
+                    if index < sortedCard.count - 1 {
+                        total += 1
+                    } else {
+                        let sortedValue = i.value.sorted(by: <)
+                        var difference = 21 - (total + sortedValue[0])
+                        var chosenValue = sortedValue[0]
+                        var idx = 1
+                        while difference > 0 && idx < sortedValue.count {
+                            if 21 - (total + sortedValue[idx]) < difference {
+                                difference = 21 - (total + sortedValue[idx])
+                                if difference >= 0 {
+                                    chosenValue = sortedValue[idx]
+                                }
+                            }
+                            idx += 1
                         }
+                        total += chosenValue
                     }
-                    idx += 1
                 }
-                total += chosenValue
             } else {
                 total += i.value[0]
             }
+            index += 1
         }
         return total
     }

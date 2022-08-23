@@ -18,7 +18,7 @@ struct HowToPlayView: View {
                     "Safe Range": "Total value is between 16 and 21"]
     let cardValue = ["A": "either 1, 10, or 11", "2 to 10": "corresponding value", "J, Q, K" : "10"]
     let action = ["Draw": "Get more cards (by tapping the card button in the middle of the table)",
-                  "Stand": "Stop drawing card (by tapping the \"Stand\" button"]
+                  "Stand": "Stop drawing card (by tapping the \"Stand\" button)"]
     let generalRule = "Player would play with the dealer. In the first round, each person would be given 2 cards. The system would check whether at least one person got Double Aces or Blackjack and identify winner if any. If there is not any Double Aces or Blackjack, the game is continued. Player and dealer would take turns drawing at most 3 cards for each person until both decide to stand. At this point, the total value of each person's cards is compared to each other and the result is given. Both the player and dealer are not allowed to draw more cards if they are already busted and to stand if their cards' total value is under 11."
     let scoreRule = [1: "If both got AA or both got Blackjack, the dealer wins, the player would lose the bet",
                      2: "If the player got AA, the dealer didn't, the player would win double of the bet. Otherwise, if the dealer got AA, the player didn't, the player would lose double of the bet.",

@@ -45,3 +45,20 @@ func stopPlayer(){
 func stopPlayer2(){
     audioPlayer?.stop()
 }
+
+func pausePlayer(){
+    audioPlayer?.pause()
+}
+
+func pausePlayer2(){
+    audioPlayer2?.pause()
+}
+
+func resumePlayer(){
+    audioPlayer?.play()
+}
+
+func resumePlayer2(){
+    audioPlayer2?.play()
+}
+

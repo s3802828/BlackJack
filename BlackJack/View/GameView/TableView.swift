@@ -39,9 +39,7 @@ struct TableView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var loggedInUser : [String: Any]
     @State var loggedInUserCopy : [String:Any] = ["currentCoin": 500]
-    @State var isRefill = false
-    @State var canStand = true
-    @State var canDraw = true
+    
     //MARK: END TURN FUNCTION
     func endTurn() {
         isPlayerTurn.toggle()
@@ -92,7 +90,7 @@ struct TableView: View {
         isPlayerStand = false
         isDealerStand = false
         winner = ""
-//        playSound(sound: "new-game", type: "wav")
+        playSound(sound: "new-game", type: "wav")
         playerCards.cards.removeAll()
         dealerCards.cards.removeAll()
         shuffledCards = cardDeck.shuffled()
@@ -155,8 +153,8 @@ struct TableView: View {
     }
     //MARK: CHECK WINNING
     func checkWinning()  {
-        let playerPoint = playerCards.calculateTotalValue()
-        let dealerPoint = dealerCards.calculateTotalValue()
+        let playerPoint = playerCards.calculateTotalValue(isEndGame: true)
+        let dealerPoint = dealerCards.calculateTotalValue(isEndGame: true)
         //MARK: CASE 1: Both got AA or Blackjack
         if (playerCards.isAA() && dealerCards.isAA())  || (playerCards.isBlackJack() && dealerCards.isBlackJack()){
             timerRunning = false
@@ -257,7 +255,7 @@ struct TableView: View {
                     winner = "player"
                 }
                 isEndGame = true
-            } else if playerPoint > 21 || dealerPoint > 21 {
+            } else if (playerPoint > 21 && dealerPoint < 16) || (dealerPoint > 21 && playerPoint < 16) {
                 timerRunning = false
                 withAnimation(Animation.linear(duration: 0.3)) {
                     self.animating.toggle()
@@ -281,7 +279,6 @@ struct TableView: View {
         }
         if loggedInUserCopy["currentCoin"] as! Int == 0 {
             loggedInUserCopy["currentCoin"] = 500
-            isRefill = true
         }
         if loggedInUserCopy["currentCoin"] as! Int > loggedInUserCopy["highestCoin"] as! Int {
             loggedInUserCopy["highestCoin"] = loggedInUserCopy["currentCoin"]
@@ -304,35 +301,15 @@ struct TableView: View {
                 .background(Capsule().fill(ColorConstants.shinyGold))
                 .overlay(Image("dark-logo-no-background").resizable().scaledToFit().scaleEffect(0.3))
                 .frame(width: (UIScreen.main.bounds.width - 100),height: (UIScreen.main.bounds.height - 90))
-//            if isRefill {
-//                ToastView(message: "You are out of money! Your money has been refill to $500", countDownTimer: 2)
-//                    .onDisappear(){
-//                        isRefill = false
-//                    }
-//            }
-//            if !canStand {
-//                ToastView(message: "Your total point is under 11, please draw more card(s)!", countDownTimer: 2)
-//                    .onDisappear(){
-//                        canStand = true
-//                    }
-//            }
-//            if !canDraw {
-//                ToastView(message: "You are busted! You cannot draw more card!", countDownTimer: 2)
-//                    .onDisappear(){
-//                        canDraw = true
-//                    }
-//            }
             ZStack{
                 //MARK: DRAW CARD BUTTON
                 if !isEndGame {
                     Button(action: {
-                        if isPlayerTurn && playerCards.calculateTotalValue() < 21 {
+                        if isPlayerTurn && playerCards.calculateTotalValue(isEndGame: false) < 21 {
                             self.drawCard(isPlayer: true)
                             if isDealerStand {
                                 self.endTurn()
                             }
-                        } else {
-                            canDraw = false
                         }
                     }, label: {
                         Image("hidden")
@@ -431,7 +408,7 @@ struct TableView: View {
                                             fill -= 1.0/Double(timeLimit)
                                             let randomTime = Int.random(in: 2...(timeLimit - 2))
                                             if !isPlayerTurn && countDownTimer <= (timeLimit - randomTime) {
-                                                let dealerPoints = dealerCards.calculateTotalValue()
+                                                let dealerPoints = dealerCards.calculateTotalValue(isEndGame: false)
                                                 if dealerPoints <= 11 && dealerCards.cards.count < 5 {
                                                     self.drawCard(isPlayer: false)
                                                     if isPlayerStand{
@@ -495,15 +472,13 @@ struct TableView: View {
                         //MARK: STAND BUTTON
                         if isPlayerTurn && !isEndGame {
                             Button(action: {
-                                if playerCards.calculateTotalValue() > 11 || playerCards.cards.count == 5 {
+                                if playerCards.calculateTotalValue(isEndGame: true) > 11 || playerCards.cards.count == 5 {
                                     playSound(sound: "stand", type: "mp3")
                                     isPlayerStand = true
                                     self.endTurn()
                                     if isDealerStand {
                                         checkWinning()
                                     }
-                                } else {
-                                    canStand = false
                                 }
                             }, label: {
                                 Capsule()
@@ -526,7 +501,7 @@ struct TableView: View {
             AppDelegate.orientationLock = UIInterfaceOrientationMask.landscape
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
             UINavigationController.attemptRotationToDeviceOrientation()
-//            playSound(sound: "new-game", type: "wav")
+            playSound(sound: "new-game", type: "wav")
             loggedInUserCopy = loggedInUser
             playerCards.cards.append(shuffledCards[0])
             shuffledCards.remove(at: 0)

@@ -7,13 +7,22 @@
 
 import SwiftUI
 struct ContentView: View {
+    @Environment(\.scenePhase) var scenePhase
     var body: some View {
-        MenuView()
+        MenuView().onChange(of: scenePhase) { newPhase in
+            if newPhase == .inactive ||  newPhase == .background {
+                pausePlayer()
+                pausePlayer2()
+            } else if newPhase == .active {
+                resumePlayer()
+                resumePlayer2()
+            }
+        }
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
 }
