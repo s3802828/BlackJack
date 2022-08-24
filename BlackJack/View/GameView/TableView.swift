@@ -438,6 +438,17 @@ struct TableView: View {
                                                 }
                                             }
                                         } else {
+                                            if isPlayerTurn {
+                                                isPlayerStand = true
+                                                if isDealerStand {
+                                                    checkWinning()
+                                                }
+                                            } else {
+                                                isDealerStand = true
+                                                if isPlayerStand {
+                                                    checkWinning()
+                                                }
+                                            }
                                             self.endTurn()
                                         }
                                     }

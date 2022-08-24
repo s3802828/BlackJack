@@ -17,6 +17,10 @@ struct RegisterView: View {
     
     func validateAuth() {
         isPasswordValid = true
+        if username == "" || password == ""{
+            isPasswordValid = false
+            return;
+        }
         for i in userArray {
             if i["username"] as! String == username  && i["password"] as! String == password {
                 isPasswordValid = true
@@ -54,7 +58,7 @@ struct RegisterView: View {
                 })
             }.textFieldStyle(.roundedBorder)
             if !isPasswordValid {
-                ToastView(message: "If you are signing up, this username is already used, please enter another one. If you are logging in, the password is incorrect, please re-enter the correct one.", countDownTimer: 2)
+                ToastView(message: "If you are signing up, this username is already used, please enter another one. If you are logging in, the password is incorrect, please re-enter the correct one.", countDownTimer: 3)
                     .onDisappear(){
                     isPasswordValid = true
                 }

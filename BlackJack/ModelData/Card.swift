@@ -50,8 +50,9 @@ struct CardArray: Identifiable{
                         var idx = 1
                         while difference > 0 && idx < sortedValue.count {
                             if 21 - (total + sortedValue[idx]) < difference {
+                                let prevDifference = difference
                                 difference = 21 - (total + sortedValue[idx])
-                                if difference >= 0 {
+                                if difference >= 0 || difference < 0 && prevDifference > 5 {
                                     chosenValue = sortedValue[idx]
                                 }
                             }
