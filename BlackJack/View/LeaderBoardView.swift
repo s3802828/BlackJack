@@ -1,9 +1,15 @@
-//
-//  LeaderBoardView.swift
-//  BlackJack
-//
-//  Created by Giang Le on 18/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 18/08/2022
+  Last modified: 19/08/2022
+  Acknowledgement:
+ P.Hudson. "How to detect dark mode" Hacking with Swift. https://www.hackingwithswift.com/quick-start/swiftui/how-to-detect-dark-mode (accessed Aug. 18, 2022)
+*/
 
 import SwiftUI
 
@@ -24,6 +30,7 @@ struct LeaderBoardView: View {
                     }
                 }
             }.onAppear(){
+                //Sort the user array according to the highest score of each user.
                 sortedUserArray = userArray.sorted{
                     $0["highestCoin"] as! Int > $1["highestCoin"] as! Int
                 }
@@ -33,18 +40,20 @@ struct LeaderBoardView: View {
         
     }
 }
+//MARK: LEADERBOARD ROW
 struct LeaderBoardRow: View {
     let order : Int
     let username: String
     let coin: Int
     var body: some View{
         HStack (alignment: .center){
+            //If the order is 1, 2, 3, show the corresponding badge
             if order < 4 {
                 Image(order == 1 ? "1st" : (order == 2 ? "2nd" : "3rd"))
                     .resizable()
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width/3, height: 50)
-            } else {
+            } else { //Otherwise, show the order number with gray circle
                 Circle()
                     .fill(ColorConstants.lightGray)
                     .frame(width: UIScreen.main.bounds.width/3, height: 50)
@@ -61,7 +70,7 @@ struct LeaderBoardRow: View {
             .background(order % 2 == 0 ? ColorConstants.lightGold : ColorConstants.boldGold)
     }
 }
-
+//MARK: LEADERBOARD COLUMMN TITLE
 struct LeaderBoardTitle: View {
     let titles : [String]
     var body: some View{

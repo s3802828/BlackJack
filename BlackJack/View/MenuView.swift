@@ -1,9 +1,16 @@
-//
-//  MenuView.swift
-//  BlackJack
-//
-//  Created by Giang Le on 16/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 16/08/2022
+  Last modified: 19/08/2022
+  Acknowledgement:
+ T.Huynh."RMIT-Casino/RMIT Casino/Views/ContentView.swift".GitHub.https://github.com/TomHuynhSG/RMIT-Casino/blob/main/RMIT%20Casino/Views/ContentView.swift. (accessed Aug. 16, 2022)
+ P.Hudson. "How to detect dark mode" Hacking with Swift. https://www.hackingwithswift.com/quick-start/swiftui/how-to-detect-dark-mode (accessed Aug. 18, 2022)
+ */
 
 import SwiftUI
 
@@ -87,7 +94,7 @@ struct MenuView: View {
                                         .fontWeight(.bold)
                                         .foregroundColor(.black))
                             }).fullScreenCover(isPresented: $showGameView){
-                                TableView(loggedInUser: $loggedInUser)
+                                GameView(loggedInUser: $loggedInUser)
                             }
                             Button(action: {
                                 isGuest = true

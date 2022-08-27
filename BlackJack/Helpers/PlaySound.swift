@@ -1,9 +1,16 @@
-//
-//  PlaySound.swift
-//  BlackJack
-//
-//  Created by Giang Le on 22/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 22/08/2022
+  Last modified: 24/08/2022
+  Acknowledgement:
+ T.Huynh."RMIT-Casino/RMIT Casino/Helpers/PlaySound.swift".GitHub.https://github.com/TomHuynhSG/RMIT-Casino/blob/main/RMIT%20Casino/Helpers/PlaySound.swift (accessed Aug. 22, 2022)
+
+ */
 
 import AVFoundation
 
@@ -14,6 +21,7 @@ func playSound(sound: String, type: String) {
     if let path = Bundle.main.path(forResource: sound, ofType: type) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            //If the sound is "welcome" song, make it inifinitely loop because this is background music
             if sound == "welcome" {
                 audioPlayer?.numberOfLoops = -1
             }
@@ -23,7 +31,7 @@ func playSound(sound: String, type: String) {
         }
     }
 }
-
+//Play another sound on top of the background music
 func playSound2(sound: String, type: String) {
     if let path = Bundle.main.path(forResource: sound, ofType: type) {
         do {

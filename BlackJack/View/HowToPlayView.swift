@@ -1,9 +1,14 @@
-//
-//  HowToPlayView.swift
-//  BlackJack
-//
-//  Created by Giang Le on 16/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 16/08/2022
+  Last modified: 16/08/2022
+  Acknowledgement:
+ T.Huynh."SSETContactList/ContactList/Views/InfoView.swift".GitHub.https://github.com/TomHuynhSG/SSETContactList/blob/main/ContactList/Views/InfoView.swift. (accessed Aug. 16, 2022)*/
 
 import SwiftUI
 

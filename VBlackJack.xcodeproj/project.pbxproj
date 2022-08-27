@@ -13,7 +13,7 @@
 		FA0F8E8928A56C9600F77F84 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0F8E8828A56C9600F77F84 /* Preview Assets.xcassets */; };
 		FA0F8E9128A6511C00F77F84 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9028A6511C00F77F84 /* ModelData.swift */; };
 		FA0F8E9328A6532800F77F84 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9228A6532800F77F84 /* Card.swift */; };
-		FA0F8E9528A6557700F77F84 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9428A6557700F77F84 /* TableView.swift */; };
+		FA0F8E9528A6557700F77F84 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0F8E9428A6557700F77F84 /* GameView.swift */; };
 		FA10BFBE28A97E5E009FBCA8 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFBD28A97E5E009FBCA8 /* ColorConstants.swift */; };
 		FA10BFC028AA7238009FBCA8 /* PlayCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFBF28AA7238009FBCA8 /* PlayCards.swift */; };
 		FA10BFC228AAC989009FBCA8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10BFC128AAC989009FBCA8 /* MenuView.swift */; };
@@ -42,7 +42,7 @@
 		FA0F8E8828A56C9600F77F84 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FA0F8E9028A6511C00F77F84 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		FA0F8E9228A6532800F77F84 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		FA0F8E9428A6557700F77F84 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		FA0F8E9428A6557700F77F84 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA10BFBD28A97E5E009FBCA8 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		FA10BFBF28AA7238009FBCA8 /* PlayCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCards.swift; sourceTree = "<group>"; };
 		FA10BFC128AAC989009FBCA8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				FA10BFBF28AA7238009FBCA8 /* PlayCards.swift */,
-				FA0F8E9428A6557700F77F84 /* TableView.swift */,
+				FA0F8E9428A6557700F77F84 /* GameView.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 				FA10BFC428AACCA7009FBCA8 /* HowToPlayView.swift in Sources */,
 				FA10BFCE28ACE622009FBCA8 /* ToastView.swift in Sources */,
 				FA10BFCA28AB770F009FBCA8 /* Modifiers.swift in Sources */,
-				FA0F8E9528A6557700F77F84 /* TableView.swift in Sources */,
+				FA0F8E9528A6557700F77F84 /* GameView.swift in Sources */,
 				FA0F8E8228A56C9400F77F84 /* BlackJackApp.swift in Sources */,
 				FA10BFBE28A97E5E009FBCA8 /* ColorConstants.swift in Sources */,
 				FAF1570728B2B2D1002B80AC /* PlaySound.swift in Sources */,

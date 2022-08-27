@@ -1,9 +1,16 @@
-//
-//  ModelData.swift
-//  BlackJack
-//
-//  Created by Giang Le on 12/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 12/08/2022
+  Last modified: 24/08/2022
+  Acknowledgement:
+ T.Huynh."SSETContactList/ContactList/Model/ModelData.swift".GitHub.https://github.com/TomHuynhSG/SSETContactList/blob/main/ContactList/Model/ModelData.swift. (accessed Aug. 12, 2022)
+
+*/
 
 import Foundation
 

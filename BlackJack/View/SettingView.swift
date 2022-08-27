@@ -1,9 +1,15 @@
-//
-//  SettingView.swift
-//  BlackJack
-//
-//  Created by Giang Le on 17/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 17/08/2022
+  Last modified: 18/08/2022
+  Acknowledgement:
+    Apple Developer Documentation. "Picker". https://developer.apple.com/documentation/swiftui/picker/. (accessed Aug. 17, 2022)
+*/
 
 import SwiftUI
 
@@ -14,6 +20,7 @@ struct SettingView: View {
     var time = [15, 30, 45]
     var coin : Int
     @State var betAmountValid = true
+    //MARK: VALIDATE BET AMOUNT
     func validateBetAmount() {
         if betSelection > coin {
             betAmountValid = false
@@ -61,9 +68,3 @@ struct SettingView: View {
     }
 }
 
-
-//struct SettingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingView()
-//    }
-//}

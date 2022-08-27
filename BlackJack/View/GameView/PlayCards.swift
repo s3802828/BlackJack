@@ -1,9 +1,15 @@
-//
-//  PlayCards.swift
-//  BlackJack
-//
-//  Created by Giang Le on 15/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 15/08/2022
+  Last modified: 24/08/2022
+  Acknowledgement:
+    T.Huynh."RMIT-Casino/RMIT Casino/Views/ReelView.swift".GitHub.https://github.com/TomHuynhSG/RMIT-Casino/blob/main/RMIT%20Casino/Views/ReelView.swift. (accessed Aug. 16, 2022)
+ */
 
 import SwiftUI
 
@@ -23,6 +29,7 @@ struct PlayCards : View {
     
     var body: some View{
         if isPlayer{
+            //player track whether game ended or not
             if !isImageFlipped {
                 ForEach(0..<playerCards.cards.count, id: \.self) { i in
                     if (showImagePlayer[i]) {
@@ -51,6 +58,7 @@ struct PlayCards : View {
                 }
             }
         } else {
+            //dealer track whether image flipped or not
             if !isImageFlipped {
                 ForEach(0..<dealerCards.cards.count, id: \.self) { i in
                     if (showImageDealer[i]) {
@@ -83,10 +91,3 @@ struct PlayCards : View {
         
     }
 }
-
-
-//struct PlayCards_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlayCards(isPlayer:)
-//    }
-//}

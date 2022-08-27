@@ -1,9 +1,16 @@
-//
-//  Modifiers.swift
-//  BlackJack
-//
-//  Created by Giang Le on 16/08/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 2
+  Author: Le Quynh Giang
+  ID: s3802828
+  Created  date: 16/08/2022
+  Last modified: 16/08/2022
+  Acknowledgement:
+ T.Huynh."RMIT-Casino/RMIT Casino/Helpers/Modifiers.swift".GitHub.https://github.com/TomHuynhSG/RMIT-Casino/blob/main/RMIT%20Casino/Helpers/Modifiers.swift (accessed Aug. 16, 2022)
+
+ */
 
 import Foundation
 import SwiftUI
